@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+canvas {
+    background: #000;
+    border: 2px solid white;
+    margin-top: 20px;
+    touch-action: none;
+}
+
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+input,
+select,
+button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
