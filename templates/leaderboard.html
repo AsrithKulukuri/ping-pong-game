@@ -3,19 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
     <div class="container">
-        <h1>Leaderboard</h1>
+        <h1>🏆 Leaderboard</h1>
         <ul>
-            {% for score in scores %}
-            <li>{{ score.name }} — {{ score.score }}</li>
+            {% for entry in scores %}
+            <li>{{ loop.index }}. {{ entry.name }} - {{ entry.score }}</li>
             {% endfor %}
         </ul>
-        <a href="/">Back to Home</a>
+        <button onclick="window.location.href='/'">Back to Home</button>
     </div>
 </body>
 

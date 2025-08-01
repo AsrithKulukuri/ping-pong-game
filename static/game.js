@@ -1,8 +1,8 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth * 0.95;
-canvas.height = window.innerHeight * 0.7;
+canvas.width = Math.min(window.innerWidth * 0.95, 600);
+canvas.height = window.innerHeight * 0.6;
 
 const paddle = { width: 100, height: 15, x: canvas.width / 2 - 50, y: canvas.height - 30 };
 const ball = { x: canvas.width / 2, y: canvas.height / 2, radius: 10, dx: 4, dy: -4 };
@@ -91,9 +91,7 @@ update();
 function submitScoreAndRedirect() {
     fetch("/submit_score", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: playerName, score })
     }).then(() => {
         window.location.href = "/leaderboard";

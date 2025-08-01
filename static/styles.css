@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     background: #111;
     color: white;
     display: flex;
@@ -8,29 +8,60 @@ body {
     align-items: center;
 }
 
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
 canvas {
     background: #000;
     border: 2px solid white;
     margin-top: 20px;
     touch-action: none;
+    max-width: 95vw;
+    max-height: 60vh;
+    width: 100%;
+    height: auto;
 }
 
 .container {
     padding: 20px;
     text-align: center;
+    width: 90%;
+    max-width: 500px;
 }
 
 input,
 select,
 button {
     margin: 10px;
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     border-radius: 8px;
     border: none;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #00bfff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background-color: #009acd;
 }
 
 ul {
     list-style: none;
     padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    margin: 6px 0;
+    font-size: 18px;
 }

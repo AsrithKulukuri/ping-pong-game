@@ -2,14 +2,12 @@ from flask import Flask, render_template, request, jsonify
 import json
 import os
 
-# Correctly tell Flask where to find templates and static files
 app = Flask(
     __name__,
     template_folder="../templates",
     static_folder="../static"
 )
 
-# File to store scores
 SCORES_FILE = "../scores.json"
 
 
@@ -56,8 +54,5 @@ def submit_score():
     return jsonify({"message": "Score submitted!"})
 
 
-# 🔧 This makes sure it runs on Render (or any external platform)
 if __name__ == "__main__":
-    # Use Render's assigned port or default
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=False, host="0.0.0.0", port=port)
+    app.run(debug=True)

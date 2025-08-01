@@ -3,17 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ping Pong Game</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
-    <canvas id="gameCanvas"></canvas>
+    <div class="container">
+        <h1>Ping Pong</h1>
+        <canvas id="gameCanvas"></canvas>
+    </div>
     <script>
-        const playerName = "{{ name }}";
-        const difficulty = "{{ difficulty }}";
+        const playerName = localStorage.getItem("playerName") || "Guest";
+        const difficulty = localStorage.getItem("difficulty") || "easy";
     </script>
-    <script src="/static/game.js"></script>
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
 </body>
 
 </html>

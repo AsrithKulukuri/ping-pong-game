@@ -3,25 +3,32 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Ping Pong</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Pong Start</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
     <div class="container">
-        <h1>Ping Pong</h1>
-        <form action="/game">
-            <input type="text" name="name" placeholder="Enter your name" required />
-            <select name="difficulty" required>
-                <option value="" disabled selected>Select difficulty</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-            <button type="submit">Start Game</button>
-        </form>
-        <a href="/leaderboard">View Leaderboard</a>
+        <h1>🎮 Ping Pong</h1>
+        <input type="text" id="playerName" placeholder="Enter your name" required>
+        <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+        <button onclick="startGame()">Start Game</button>
+        <button onclick="window.location.href='/leaderboard'">Leaderboard</button>
     </div>
+    <script>
+        function startGame() {
+            const name = document.getElementById("playerName").value || "Guest";
+            const difficulty = document.getElementById("difficulty").value;
+            localStorage.setItem("playerName", name);
+            localStorage.setItem("difficulty", difficulty);
+            window.location.href = "/game";
+        }
+    </script>
 </body>
 
 </html>
