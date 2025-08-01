@@ -2,10 +2,23 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
 canvas.width = Math.min(window.innerWidth * 0.95, 600);
-canvas.height = window.innerHeight * 0.6;
+canvas.height = Math.min(window.innerHeight * 0.6, 500);
 
-const paddle = { width: 100, height: 15, x: canvas.width / 2 - 50, y: canvas.height - 30 };
-const ball = { x: canvas.width / 2, y: canvas.height / 2, radius: 10, dx: 4, dy: -4 };
+const paddle = {
+    width: 100,
+    height: 15,
+    x: canvas.width / 2 - 50,
+    y: canvas.height - 30
+};
+
+const ball = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    radius: 10,
+    dx: 4,
+    dy: -4
+};
+
 let score = 0;
 
 const difficultyMap = {
@@ -53,17 +66,17 @@ function update() {
 
     // Paddle collision
     if (
-        ball.y + ball.radius > paddle.y &&
-        ball.x > paddle.x &&
-        ball.x < paddle.x + paddle.width
+        ball.y + ball.radius >= paddle.y &&
+        ball.x >= paddle.x &&
+        ball.x <= paddle.x + paddle.width
     ) {
-        ball.dy = -ball.dy;
+        ball.dy = -Math.abs(ball.dy);
         score++;
         vibrate();
     }
 
-    // Missed paddle
-    if (ball.y + ball.radius > canvas.height) {
+    // Game over
+    if (ball.y - ball.radius > canvas.height) {
         submitScoreAndRedirect();
         return;
     }
@@ -84,9 +97,13 @@ function vibrate() {
 canvas.addEventListener("touchmove", function (e) {
     const touch = e.touches[0];
     paddle.x = touch.clientX - paddle.width / 2;
-});
+    paddle.x = Math.max(0, Math.min(paddle.x, canvas.width - paddle.width));
+}, { passive: true });
 
-update();
+canvas.addEventListener("mousemove", function (e) {
+    paddle.x = e.clientX - canvas.getBoundingClientRect().left - paddle.width / 2;
+    paddle.x = Math.max(0, Math.min(paddle.x, canvas.width - paddle.width));
+});
 
 function submitScoreAndRedirect() {
     fetch("/submit_score", {
@@ -97,3 +114,5 @@ function submitScoreAndRedirect() {
         window.location.href = "/leaderboard";
     });
 }
+
+update();

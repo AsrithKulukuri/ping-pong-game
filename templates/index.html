@@ -5,29 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ping Pong Start</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 
 <body>
     <div class="container">
         <h1>🎮 Ping Pong</h1>
-        <input type="text" id="playerName" placeholder="Enter your name" required>
+
+        <input type="text" id="playerName" placeholder="Enter your name" maxlength="20" autofocus>
+
         <select id="difficulty">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
         </select>
+
         <button onclick="startGame()">Start Game</button>
         <button onclick="window.location.href='/leaderboard'">Leaderboard</button>
     </div>
+
     <script>
         function startGame() {
-            const name = document.getElementById("playerName").value || "Guest";
+            const nameInput = document.getElementById("playerName");
+            const name = nameInput.value.trim() || "Guest";
             const difficulty = document.getElementById("difficulty").value;
+
             localStorage.setItem("playerName", name);
             localStorage.setItem("difficulty", difficulty);
+
             window.location.href = "/game";
         }
+
+        // Allow Enter key to start game
+        document.getElementById("playerName").addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                startGame();
+            }
+        });
     </script>
 </body>
 
